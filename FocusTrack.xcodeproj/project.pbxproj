@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B1000001000000000000B001 /* FocusTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000001000000000000F001 /* FocusTrackApp.swift */; };
+		B1000002000000000000B001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000002000000000000F001 /* ContentView.swift */; };
+		B1000003000000000000B001 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000003000000000000F001 /* Models.swift */; };
+		B1000004000000000000B001 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000004000000000000F001 /* DataStore.swift */; };
+		B1000005000000000000B001 /* BehaviorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000005000000000000F001 /* BehaviorTracker.swift */; };
+		B1000006000000000000B001 /* AttentionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000006000000000000F001 /* AttentionAnalyzer.swift */; };
+		B1000007000000000000B001 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000007000000000000F001 /* OnboardingView.swift */; };
+		B1000008000000000000B001 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000008000000000000F001 /* DashboardView.swift */; };
+		B1000009000000000000B001 /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000009000000000000F001 /* ExerciseListView.swift */; };
+		B100000A000000000000B001 /* ExerciseSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000A000000000000F001 /* ExerciseSessionView.swift */; };
+		B100000B000000000000B001 /* MathExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000B000000000000F001 /* MathExerciseView.swift */; };
+		B100000C000000000000B001 /* ReadingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000C000000000000F001 /* ReadingExerciseView.swift */; };
+		B100000D000000000000B001 /* MemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000D000000000000F001 /* MemoryGameView.swift */; };
+		B100000E000000000000B001 /* PatternGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000E000000000000F001 /* PatternGameView.swift */; };
+		B100000F000000000000B001 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100000F000000000000F001 /* ReportsView.swift */; };
+		B1000010000000000000B001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000010000000000000F001 /* SettingsView.swift */; };
+		B1000011000000000000B001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1000011000000000000F001 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F1000001000000000000F001 /* FocusTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTrackApp.swift; sourceTree = "<group>"; };
+		F1000002000000000000F001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F1000003000000000000F001 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F1000004000000000000F001 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		F1000005000000000000F001 /* BehaviorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorTracker.swift; sourceTree = "<group>"; };
+		F1000006000000000000F001 /* AttentionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionAnalyzer.swift; sourceTree = "<group>"; };
+		F1000007000000000000F001 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F1000008000000000000F001 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F1000009000000000000F001 /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
+		F100000A000000000000F001 /* ExerciseSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSessionView.swift; sourceTree = "<group>"; };
+		F100000B000000000000F001 /* MathExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathExerciseView.swift; sourceTree = "<group>"; };
+		F100000C000000000000F001 /* ReadingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingExerciseView.swift; sourceTree = "<group>"; };
+		F100000D000000000000F001 /* MemoryGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameView.swift; sourceTree = "<group>"; };
+		F100000E000000000000F001 /* PatternGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternGameView.swift; sourceTree = "<group>"; };
+		F100000F000000000000F001 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
+		F1000010000000000000F001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F1000011000000000000F001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1B2C3D4E5F6000CA1B2C3D4 /* FocusTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1B2C3D4E5F60010A1B2C3D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1B2C3D4E5F60001A1B2C3D4 /* FocusTrack */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60002A1B2C3D4 /* FocusTrack */,
+				A1B2C3D4E5F6000BA1B2C3D4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F6000BA1B2C3D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F6000CA1B2C3D4 /* FocusTrack.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60002A1B2C3D4 /* FocusTrack */ = {
+			isa = PBXGroup;
+			children = (
+				F1000001000000000000F001 /* FocusTrackApp.swift */,
+				F1000002000000000000F001 /* ContentView.swift */,
+				A1B2C3D4E5F60003A1B2C3D4 /* Models */,
+				A1B2C3D4E5F60004A1B2C3D4 /* Services */,
+				A1B2C3D4E5F60005A1B2C3D4 /* Views */,
+				F1000011000000000000F001 /* Assets.xcassets */,
+			);
+			path = FocusTrack;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60003A1B2C3D4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F1000003000000000000F001 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60004A1B2C3D4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F1000004000000000000F001 /* DataStore.swift */,
+				F1000005000000000000F001 /* BehaviorTracker.swift */,
+				F1000006000000000000F001 /* AttentionAnalyzer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60005A1B2C3D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F6000AA1B2C3D4 /* Onboarding */,
+				A1B2C3D4E5F60006A1B2C3D4 /* Dashboard */,
+				A1B2C3D4E5F60007A1B2C3D4 /* Exercises */,
+				A1B2C3D4E5F60008A1B2C3D4 /* Reports */,
+				A1B2C3D4E5F60009A1B2C3D4 /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F6000AA1B2C3D4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F1000007000000000000F001 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60006A1B2C3D4 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F1000008000000000000F001 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60007A1B2C3D4 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				F1000009000000000000F001 /* ExerciseListView.swift */,
+				F100000A000000000000F001 /* ExerciseSessionView.swift */,
+				F100000B000000000000F001 /* MathExerciseView.swift */,
+				F100000C000000000000F001 /* ReadingExerciseView.swift */,
+				F100000D000000000000F001 /* MemoryGameView.swift */,
+				F100000E000000000000F001 /* PatternGameView.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60008A1B2C3D4 /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				F100000F000000000000F001 /* ReportsView.swift */,
+			);
+			path = Reports;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60009A1B2C3D4 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F1000010000000000000F001 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1B2C3D4E5F6000DA1B2C3D4 /* FocusTrack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1000002000000000000C001 /* Build configuration list for PBXNativeTarget "FocusTrack" */;
+			buildPhases = (
+				A1B2C3D4E5F6000EA1B2C3D4 /* Sources */,
+				A1B2C3D4E5F60010A1B2C3D4 /* Frameworks */,
+				A1B2C3D4E5F6000FA1B2C3D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FocusTrack;
+			productName = FocusTrack;
+			productReference = A1B2C3D4E5F6000CA1B2C3D4 /* FocusTrack.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D39B5F92A1C38E047B620D15 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A1B2C3D4E5F6000DA1B2C3D4 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = C1000001000000000000C001 /* Build configuration list for PBXProject "FocusTrack" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1B2C3D4E5F60001A1B2C3D4;
+			productRefGroup = A1B2C3D4E5F6000BA1B2C3D4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1B2C3D4E5F6000DA1B2C3D4 /* FocusTrack */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1B2C3D4E5F6000FA1B2C3D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000011000000000000B001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1B2C3D4E5F6000EA1B2C3D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000001000000000000B001 /* FocusTrackApp.swift in Sources */,
+				B1000002000000000000B001 /* ContentView.swift in Sources */,
+				B1000003000000000000B001 /* Models.swift in Sources */,
+				B1000004000000000000B001 /* DataStore.swift in Sources */,
+				B1000005000000000000B001 /* BehaviorTracker.swift in Sources */,
+				B1000006000000000000B001 /* AttentionAnalyzer.swift in Sources */,
+				B1000007000000000000B001 /* OnboardingView.swift in Sources */,
+				B1000008000000000000B001 /* DashboardView.swift in Sources */,
+				B1000009000000000000B001 /* ExerciseListView.swift in Sources */,
+				B100000A000000000000B001 /* ExerciseSessionView.swift in Sources */,
+				B100000B000000000000B001 /* MathExerciseView.swift in Sources */,
+				B100000C000000000000B001 /* ReadingExerciseView.swift in Sources */,
+				B100000D000000000000B001 /* MemoryGameView.swift in Sources */,
+				B100000E000000000000B001 /* PatternGameView.swift in Sources */,
+				B100000F000000000000B001 /* ReportsView.swift in Sources */,
+				B1000010000000000000B001 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C1000003000000000000C001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C1000004000000000000C001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C1000005000000000000C001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.focustrack.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C1000006000000000000C001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.focustrack.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C1000001000000000000C001 /* Build configuration list for PBXProject "FocusTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1000003000000000000C001 /* Debug */,
+				C1000004000000000000C001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1000002000000000000C001 /* Build configuration list for PBXNativeTarget "FocusTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1000005000000000000C001 /* Debug */,
+				C1000006000000000000C001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = D39B5F92A1C38E047B620D15 /* Project object */;
+}
