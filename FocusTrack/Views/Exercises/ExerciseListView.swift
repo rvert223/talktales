@@ -58,11 +58,11 @@ private struct ExerciseCard: View {
             HStack(spacing: 16) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(type.colorName).opacity(0.15))
+                        .fill(type.color.opacity(0.15))
                         .frame(width: 56, height: 56)
                     Image(systemName: type.icon)
                         .font(.title2)
-                        .foregroundColor(Color(type.colorName))
+                        .foregroundColor(type.color)
                 }
 
                 VStack(alignment: .leading, spacing: 4) {

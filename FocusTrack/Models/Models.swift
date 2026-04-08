@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 // MARK: - Child Profile
 
@@ -40,12 +41,12 @@ enum ExerciseType: String, Codable, CaseIterable, Identifiable {
         }
     }
 
-    var colorName: String {
+    var color: Color {
         switch self {
-        case .math:    return "blue"
-        case .reading: return "green"
-        case .memory:  return "purple"
-        case .pattern: return "orange"
+        case .math:    return .blue
+        case .reading: return .green
+        case .memory:  return .purple
+        case .pattern: return .orange
         }
     }
 
@@ -145,11 +146,11 @@ struct SessionMetrics: Codable {
         case moderate = "Monitor"
         case elevated = "Follow Up"
 
-        var color: String {
+        var color: Color {
             switch self {
-            case .low:      return "green"
-            case .moderate: return "orange"
-            case .elevated: return "red"
+            case .low:      return .green
+            case .moderate: return .orange
+            case .elevated: return .red
             }
         }
 
@@ -240,12 +241,12 @@ struct TrendReport {
             }
         }
 
-        var color: String {
+        var color: Color {
             switch self {
-            case .improving:    return "green"
-            case .stable:       return "blue"
-            case .declining:    return "orange"
-            case .insufficient: return "gray"
+            case .improving:    return .green
+            case .stable:       return .blue
+            case .declining:    return .orange
+            case .insufficient: return .gray
             }
         }
     }

@@ -151,13 +151,14 @@ private struct TrendStat: View {
     }
 }
 
-// MARK: - Score History Chart (manual, no Charts framework dependency)
+// MARK: - Score History Chart
 
 private struct ScoreHistoryChart: View {
-    let sessions: [ExerciseSession]   // already sorted newest-first; we'll reverse for display
+    let sessions: [ExerciseSession]
 
-    private var chronological: [ExerciseSession] { sessions.reversed() }
-    private var scores: [Double]      { chronological.compactMap(\.metrics?.focusScore) }
+    private var scores: [Double] {
+        sessions.reversed().compactMap(\.metrics?.focusScore)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -165,78 +166,96 @@ private struct ScoreHistoryChart: View {
                 .font(.caption.weight(.semibold))
                 .foregroundColor(.secondary)
 
-            GeometryReader { geo in
-                let w = geo.size.width
-                let h = geo.size.height
-                let count = scores.count
-                guard count > 1 else { return AnyView(EmptyView()) }
+            if scores.count > 1 {
+                GeometryReader { geo in
+                    ScoreLineCanvas(scores: scores, size: geo.size)
+                }
+                .frame(height: 120)
+                .padding(.vertical, 4)
 
-                let minVal = (scores.min() ?? 0) - 5
-                let maxVal = (scores.max() ?? 100) + 5
-                let range  = max(maxVal - minVal, 1)
-                let step   = w / CGFloat(count - 1)
-
-                return AnyView(ZStack {
-                    // Grid lines
-                    ForEach([25, 50, 75], id: \.self) { level in
-                        let y = h - CGFloat((Double(level) - minVal) / range) * h
-                        Path { path in
-                            path.move(to: CGPoint(x: 0, y: y))
-                            path.addLine(to: CGPoint(x: w, y: y))
-                        }
-                        .stroke(Color.secondary.opacity(0.15), lineWidth: 1)
-                    }
-
-                    // Filled area under line
-                    Path { path in
-                        for (i, score) in scores.enumerated() {
-                            let x = CGFloat(i) * step
-                            let y = h - CGFloat((score - minVal) / range) * h
-                            if i == 0 { path.move(to: CGPoint(x: x, y: y)) }
-                            else { path.addLine(to: CGPoint(x: x, y: y)) }
-                        }
-                        path.addLine(to: CGPoint(x: CGFloat(count - 1) * step, y: h))
-                        path.addLine(to: CGPoint(x: 0, y: h))
-                        path.closeSubpath()
-                    }
-                    .fill(LinearGradient(colors: [Color.blue.opacity(0.25), Color.blue.opacity(0.0)],
-                                        startPoint: .top, endPoint: .bottom))
-
-                    // Line
-                    Path { path in
-                        for (i, score) in scores.enumerated() {
-                            let x = CGFloat(i) * step
-                            let y = h - CGFloat((score - minVal) / range) * h
-                            if i == 0 { path.move(to: CGPoint(x: x, y: y)) }
-                            else { path.addLine(to: CGPoint(x: x, y: y)) }
-                        }
-                    }
-                    .stroke(Color.blue, style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
-
-                    // Dots
-                    ForEach(scores.indices, id: \.self) { i in
-                        let x = CGFloat(i) * step
-                        let y = h - CGFloat((scores[i] - minVal) / range) * h
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 7, height: 7)
-                            .position(x: x, y: y)
-                    }
-                })
-            }
-            .frame(height: 120)
-            .padding(.vertical, 4)
-
-            // X-axis labels
-            HStack {
-                Text("Oldest").font(.caption2).foregroundColor(.secondary)
-                Spacer()
-                Text("Newest").font(.caption2).foregroundColor(.secondary)
+                HStack {
+                    Text("Oldest").font(.caption2).foregroundColor(.secondary)
+                    Spacer()
+                    Text("Newest").font(.caption2).foregroundColor(.secondary)
+                }
+            } else {
+                Text("Complete more sessions to see the chart.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .frame(height: 40)
             }
         }
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(16)
+    }
+}
+
+/// Drawing is extracted into its own View so the GeometryReader closure
+/// stays a simple single-expression @ViewBuilder body.
+private struct ScoreLineCanvas: View {
+    let scores: [Double]
+    let size: CGSize
+
+    var body: some View {
+        let w       = size.width
+        let h       = size.height
+        let count   = scores.count
+        let minVal  = (scores.min() ?? 0) - 5
+        let maxVal  = max((scores.max() ?? 100) + 5, minVal + 1)
+        let range   = maxVal - minVal
+        let step    = w / CGFloat(count - 1)
+
+        ZStack {
+            // Horizontal reference lines at 25, 50, 75
+            ForEach([25.0, 50.0, 75.0], id: \.self) { level in
+                Path { path in
+                    let y = h - CGFloat((level - minVal) / range) * h
+                    path.move(to: CGPoint(x: 0,  y: y))
+                    path.addLine(to: CGPoint(x: w, y: y))
+                }
+                .stroke(Color.secondary.opacity(0.15), lineWidth: 1)
+            }
+
+            // Gradient fill under the line
+            Path { path in
+                for (i, score) in scores.enumerated() {
+                    let x = CGFloat(i) * step
+                    let y = h - CGFloat((score - minVal) / range) * h
+                    if i == 0 { path.move(to: CGPoint(x: x, y: y)) }
+                    else       { path.addLine(to: CGPoint(x: x, y: y)) }
+                }
+                path.addLine(to: CGPoint(x: CGFloat(count - 1) * step, y: h))
+                path.addLine(to: CGPoint(x: 0, y: h))
+                path.closeSubpath()
+            }
+            .fill(LinearGradient(
+                colors: [Color.blue.opacity(0.25), Color.blue.opacity(0)],
+                startPoint: .top, endPoint: .bottom
+            ))
+
+            // Line
+            Path { path in
+                for (i, score) in scores.enumerated() {
+                    let x = CGFloat(i) * step
+                    let y = h - CGFloat((score - minVal) / range) * h
+                    if i == 0 { path.move(to: CGPoint(x: x, y: y)) }
+                    else       { path.addLine(to: CGPoint(x: x, y: y)) }
+                }
+            }
+            .stroke(Color.blue, style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+
+            // Dots
+            ForEach(scores.indices, id: \.self) { i in
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 7, height: 7)
+                    .position(
+                        x: CGFloat(i) * step,
+                        y: h - CGFloat((scores[i] - minVal) / range) * h
+                    )
+            }
+        }
     }
 }
 
@@ -250,10 +269,10 @@ private struct SessionHistoryRow: View {
         HStack(spacing: 14) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(session.exerciseType.colorName).opacity(0.15))
+                    .fill(session.exerciseType.color.opacity(0.15))
                     .frame(width: 44, height: 44)
                 Image(systemName: session.exerciseType.icon)
-                    .foregroundColor(Color(session.exerciseType.colorName))
+                    .foregroundColor(session.exerciseType.color)
             }
 
             VStack(alignment: .leading, spacing: 3) {
@@ -274,8 +293,8 @@ private struct SessionHistoryRow: View {
                     .font(.caption2)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .background(Color(metrics.concernLevel.color).opacity(0.15))
-                    .foregroundColor(Color(metrics.concernLevel.color))
+                    .background(metrics.concernLevel.color.opacity(0.15))
+                    .foregroundColor(metrics.concernLevel.color)
                     .cornerRadius(6)
             }
         }

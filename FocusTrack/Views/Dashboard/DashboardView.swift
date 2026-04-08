@@ -177,7 +177,7 @@ private struct LatestSessionCard: View {
                            color: .blue)
                 MetricPill(label: "Status",
                            value: metrics.concernLevel.rawValue,
-                           color: Color(metrics.concernLevel.color))
+                           color: metrics.concernLevel.color)
                 MetricPill(label: "Focus",
                            value: String(format: "%.0f", metrics.focusScore),
                            color: .purple)
@@ -257,8 +257,8 @@ struct TrendBadge: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(Color(trend.color).opacity(0.15))
-        .foregroundColor(Color(trend.color))
+        .background(trend.color.opacity(0.15))
+        .foregroundColor(trend.color)
         .cornerRadius(20)
     }
 }

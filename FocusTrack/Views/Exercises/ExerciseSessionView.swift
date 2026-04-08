@@ -80,11 +80,11 @@ private struct IntroCard: View {
             Spacer()
             ZStack {
                 Circle()
-                    .fill(Color(type.colorName).opacity(0.15))
+                    .fill(type.color.opacity(0.15))
                     .frame(width: 110, height: 110)
                 Image(systemName: type.icon)
                     .font(.system(size: 44))
-                    .foregroundColor(Color(type.colorName))
+                    .foregroundColor(type.color)
             }
 
             VStack(spacing: 10) {
@@ -116,7 +116,7 @@ private struct IntroCard: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color(type.colorName))
+                        .background(type.color)
                         .foregroundColor(.white)
                         .cornerRadius(14)
                 }
@@ -148,7 +148,7 @@ struct SessionResultView: View {
                 VStack(spacing: 8) {
                     Image(systemName: metrics.concernLevel.icon)
                         .font(.system(size: 56))
-                        .foregroundColor(Color(metrics.concernLevel.color))
+                        .foregroundColor(metrics.concernLevel.color)
                         .padding(.top, 32)
                     Text("Session Complete")
                         .font(.title2.bold())
