@@ -30,17 +30,22 @@ struct ExerciseSessionView: View {
 
             case .running:
                 exerciseBody
-                    .onDisappear { }   // exercise views call onFinish
 
             case .result:
                 if let session = completedSession, let metrics = session.metrics {
                     SessionResultView(session: session, metrics: metrics, child: child) {
                         dismiss()
                     }
+                } else {
+                    // Shouldn't happen, but fail visibly rather than blank
+                    VStack(spacing: 16) {
+                        Text("Session complete!").font(.title2.bold())
+                        Button("Done") { dismiss() }.buttonStyle(.borderedProminent)
+                    }
                 }
             }
         }
-        .interactiveDismissDisabled(phase == .running)
+        .navigationBarBackButtonHidden(phase == .running)
     }
 
     @ViewBuilder
