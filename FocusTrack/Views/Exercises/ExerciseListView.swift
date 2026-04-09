@@ -4,8 +4,7 @@ struct ExerciseListView: View {
     @EnvironmentObject var dataStore: DataStore
     @State private var selectedExercise: ExerciseType?
     @State private var showSession = false
-
-    var child: Child? { dataStore.selectedChild }
+    @State private var sessionChild: Child?   // captured before cover opens
 
     var body: some View {
         NavigationStack {
@@ -14,7 +13,7 @@ struct ExerciseListView: View {
                     ChildSelectorBar()
                         .padding(.horizontal)
 
-                    if let child {
+                    if let child = dataStore.selectedChild {
                         Text("Choose an activity for \(child.name)")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
@@ -23,6 +22,7 @@ struct ExerciseListView: View {
 
                         ForEach(ExerciseType.allCases) { type in
                             ExerciseCard(type: type) {
+                                sessionChild = dataStore.selectedChild
                                 selectedExercise = type
                                 showSession = true
                             }
@@ -39,8 +39,9 @@ struct ExerciseListView: View {
             .navigationTitle("Exercises")
             .background(Color(.systemGroupedBackground))
             .fullScreenCover(isPresented: $showSession) {
-                if let exercise = selectedExercise, let child {
+                if let exercise = selectedExercise, let child = sessionChild {
                     ExerciseSessionView(exerciseType: exercise, child: child)
+                        .environmentObject(dataStore)
                 }
             }
         }
