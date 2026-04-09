@@ -1,149 +1,147 @@
 import SwiftUI
 
+/// Quick-peek memory exercise.
+/// Each round: show 4 emoji for 2.5 s → hide them → ask "which one was in position X?"
 struct MemoryGameView: View {
     let tracker: BehaviorTracker
     let onFinish: () -> Void
 
-    @State private var cards: [MemoryCard] = MemoryCard.shuffledDeck()
-    @State private var firstFlipped: Int?
-    @State private var matchedPairs = 0
-    @State private var isChecking = false
-    @State private var moveCount = 0
+    private let rounds = MemoryRound.all
+    @State private var index = 0
+    @State private var phase: MemPhase = .showing
+    @State private var tapped: Int? = nil      // index into choices[]
 
-    private let totalPairs = 8
+    enum MemPhase { case showing, question }
+
+    private var round: MemoryRound { rounds[index] }
 
     var body: some View {
         ZStack {
             Color(.systemGroupedBackground).ignoresSafeArea()
-
             VStack(spacing: 0) {
-                HStack {
-                    Label("Pairs: \(matchedPairs)/\(totalPairs)", systemImage: "square.grid.2x2.fill")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundColor(.purple)
-                    Spacer()
-                    Label("Moves: \(moveCount)", systemImage: "hand.tap")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                progressBar
+                Spacer()
+                switch phase {
+                case .showing:  peekView
+                case .question: questionView
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 20)
-                .padding(.bottom, 12)
-
-                ProgressView(value: Double(matchedPairs), total: Double(totalPairs))
-                    .tint(.purple)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 16)
-
-                // 4×4 grid
-                let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 4)
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(cards.indices, id: \.self) { idx in
-                        CardView(card: cards[idx])
-                            .aspectRatio(0.75, contentMode: .fit)
-                            .onTapGesture {
-                                tracker.recordTouch()
-                                handleTap(idx)
-                            }
-                    }
-                }
-                .padding(.horizontal, 16)
-
                 Spacer()
             }
         }
-        .onAppear { tracker.beginTask(index: 0) }
+        .onAppear { startRound() }
     }
 
-    // MARK: - Game Logic
+    // MARK: - Sub-views
 
-    private func handleTap(_ idx: Int) {
-        guard !isChecking,
-              !cards[idx].isMatched,
-              !cards[idx].isFaceUp else { return }
-
-        withAnimation(.spring(response: 0.35)) {
-            cards[idx].isFaceUp = true
+    private var progressBar: some View {
+        VStack(spacing: 4) {
+            ProgressView(value: Double(index), total: Double(rounds.count))
+                .tint(.purple).padding(.horizontal).padding(.top, 16)
+            Text("Round \(index + 1) of \(rounds.count)")
+                .font(.caption).foregroundColor(.secondary)
         }
+    }
 
-        if let first = firstFlipped {
-            // Second card flipped
-            isChecking = true
-            moveCount += 1
-
-            if cards[first].emoji == cards[idx].emoji {
-                // Match!
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation {
-                        cards[first].isMatched = true
-                        cards[idx].isMatched   = true
-                    }
-                    matchedPairs += 1
-                    tracker.submitAnswer(isCorrect: true)
-                    tracker.beginTask(index: matchedPairs)
-                    firstFlipped = nil
-                    isChecking = false
-                    if matchedPairs == totalPairs { onFinish() }
-                }
-            } else {
-                // No match — flip back
-                tracker.submitAnswer(isCorrect: false)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    withAnimation(.spring(response: 0.35)) {
-                        cards[first].isFaceUp = false
-                        cards[idx].isFaceUp   = false
-                    }
-                    firstFlipped = nil
-                    isChecking = false
+    private var peekView: some View {
+        VStack(spacing: 24) {
+            Text("Remember these!")
+                .font(.headline).foregroundColor(.purple)
+            HStack(spacing: 18) {
+                ForEach(round.shown.indices, id: \.self) { i in
+                    Text(round.shown[i])
+                        .font(.system(size: 44))
+                        .frame(width: 64, height: 64)
+                        .background(Color.purple.opacity(0.12))
+                        .cornerRadius(14)
                 }
             }
-        } else {
-            firstFlipped = idx
+            Text("Memorise them…")
+                .font(.subheadline).foregroundColor(.secondary)
         }
     }
-}
 
-// MARK: - Card View
-
-private struct CardView: View {
-    let card: MemoryCard
-
-    var body: some View {
-        ZStack {
-            if card.isFaceUp || card.isMatched {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(card.isMatched ? Color.purple.opacity(0.15) : Color.white)
-                    .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
-                Text(card.emoji)
-                    .font(.system(size: 28))
-            } else {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.purple)
-                Image(systemName: "questionmark")
+    private var questionView: some View {
+        VStack(spacing: 28) {
+            VStack(spacing: 8) {
+                Text("Which emoji was in")
+                    .font(.headline)
+                Text("position \(round.askPosition)?")
                     .font(.title2.bold())
-                    .foregroundColor(.white)
+            }
+            .multilineTextAlignment(.center)
+
+            HStack(spacing: 16) {
+                ForEach(round.choices.indices, id: \.self) { i in
+                    Button {
+                        guard tapped == nil else { return }
+                        tracker.recordTouch()
+                        tapped = i
+                        tracker.submitAnswer(isCorrect: i == round.correctIndex)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) { advance() }
+                    } label: {
+                        Text(round.choices[i])
+                            .font(.system(size: 40))
+                            .frame(width: 72, height: 72)
+                            .background(chipColor(i: i))
+                            .cornerRadius(16)
+                    }
+                    .disabled(tapped != nil)
+                }
             }
         }
-        .rotation3DEffect(.degrees(card.isFaceUp || card.isMatched ? 0 : 180),
-                          axis: (x: 0, y: 1, z: 0))
+    }
+
+    private func chipColor(i: Int) -> Color {
+        guard let t = tapped else { return Color.purple.opacity(0.12) }
+        if i == t                  { return i == round.correctIndex ? .green : .red }
+        if i == round.correctIndex { return .green.opacity(0.4) }
+        return Color.purple.opacity(0.06)
+    }
+
+    // MARK: - Logic
+
+    private func startRound() {
+        phase = .showing
+        tapped = nil
+        tracker.beginTask(index: index)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            phase = .question
+        }
+    }
+
+    private func advance() {
+        let next = index + 1
+        if next >= rounds.count { onFinish(); return }
+        index = next
+        startRound()
     }
 }
 
-// MARK: - Model
+// MARK: - Data
 
-struct MemoryCard {
-    let id: UUID
-    let emoji: String
-    var isFaceUp: Bool
-    var isMatched: Bool
+struct MemoryRound {
+    let shown: [String]          // 4 emoji shown to user
+    let askPosition: Int         // 1-based position asked about
+    let choices: [String]        // 4 emoji choices (contains correct answer)
+    let correctIndex: Int        // index into choices[]
 
-    static let emojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼"]
+    static let all: [MemoryRound] = [
+        make(shown: ["🐶","🐱","🐰","🦊"], ask: 2),
+        make(shown: ["🍎","🍌","🍇","🍓"], ask: 3),
+        make(shown: ["🚀","🌙","⭐","🌍"], ask: 1),
+        make(shown: ["🎸","🎹","🎺","🥁"], ask: 4),
+        make(shown: ["🌸","🌻","🌺","🍀"], ask: 2),
+        make(shown: ["🐘","🦁","🐬","🦋"], ask: 3),
+        make(shown: ["🏀","⚽","🎾","🏈"], ask: 1),
+        make(shown: ["🍕","🍔","🌮","🍜"], ask: 4),
+    ]
 
-    static func shuffledDeck() -> [MemoryCard] {
-        let pairs = emojis.flatMap { emoji -> [MemoryCard] in
-            [MemoryCard(id: UUID(), emoji: emoji, isFaceUp: false, isMatched: false),
-             MemoryCard(id: UUID(), emoji: emoji, isFaceUp: false, isMatched: false)]
-        }
-        return pairs.shuffled()
+    private static func make(shown: [String], ask: Int) -> MemoryRound {
+        let correct = shown[ask - 1]
+        let pool    = ["🌵","🎃","🚂","💎","🎈","🔑","🌈","🦄"].filter { !shown.contains($0) }
+        var choices = [correct] + Array(pool.prefix(3))
+        choices.shuffle()
+        let idx = choices.firstIndex(of: correct)!
+        return MemoryRound(shown: shown, askPosition: ask, choices: choices, correctIndex: idx)
     }
 }
