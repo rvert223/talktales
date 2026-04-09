@@ -3,6 +3,7 @@ import SwiftUI
 struct ExerciseListView: View {
     @EnvironmentObject var dataStore: DataStore
     @State private var selectedExercise: ExerciseType?
+    @State private var isShowingExercise = false
 
     var body: some View {
         NavigationStack {
@@ -21,6 +22,7 @@ struct ExerciseListView: View {
                         ForEach(ExerciseType.allCases) { type in
                             ExerciseCard(type: type) {
                                 selectedExercise = type
+                                isShowingExercise = true
                             }
                             .padding(.horizontal)
                         }
@@ -34,8 +36,8 @@ struct ExerciseListView: View {
             }
             .navigationTitle("Exercises")
             .background(Color(.systemGroupedBackground))
-            .navigationDestination(item: $selectedExercise) { exercise in
-                if let child = dataStore.selectedChild {
+            .navigationDestination(isPresented: $isShowingExercise) {
+                if let exercise = selectedExercise, let child = dataStore.selectedChild {
                     ExerciseSessionView(exerciseType: exercise, child: child)
                 }
             }
