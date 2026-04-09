@@ -2,25 +2,60 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var dataStore: DataStore
-    @State private var showAddChild   = false
+    @State private var showAddChild    = false
     @State private var editingChild: Child?
     @State private var showDeleteAlert = false
     @State private var childToDelete: Child?
+    @State private var showLogoutAlert = false
 
     var body: some View {
         NavigationStack {
             List {
+
+                // ── Account ───────────────────────────────────────────
+                if let account = dataStore.account {
+                    Section("My Account") {
+                        HStack(spacing: 14) {
+                            ZStack {
+                                Circle().fill(Color.blue.opacity(0.15))
+                                Text(account.name.prefix(1).uppercased())
+                                    .font(.title3.bold())
+                                    .foregroundColor(.blue)
+                            }
+                            .frame(width: 48, height: 48)
+
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(account.name)
+                                    .font(.subheadline.weight(.semibold))
+                                Text(account.email)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+
+                        Button(role: .destructive) {
+                            showLogoutAlert = true
+                        } label: {
+                            Label("Log Out", systemImage: "rectangle.portrait.and.arrow.right")
+                        }
+                    }
+                }
+
                 // ── Children ──────────────────────────────────────────
                 Section {
                     ForEach(dataStore.children) { child in
-                        ChildRow(child: child) {
+                        ChildRow(child: child,
+                                 isSelected: child.id == dataStore.selectedChildId) {
                             editingChild = child
+                        } onSelect: {
+                            dataStore.selectedChildId = child.id
                         }
                     }
                     Button {
                         showAddChild = true
                     } label: {
-                        Label("Add Child", systemImage: "plus.circle.fill")
+                        Label("Add Child Profile", systemImage: "plus.circle.fill")
                             .foregroundColor(.blue)
                     }
                 } header: {
@@ -49,34 +84,34 @@ struct SettingsView: View {
                 if !dataStore.children.isEmpty {
                     Section {
                         Button(role: .destructive) {
-                            childToDelete = dataStore.selectedChild
+                            childToDelete  = dataStore.selectedChild
                             showDeleteAlert = true
                         } label: {
                             Label("Delete Selected Child's Data", systemImage: "trash")
                         }
                     } footer: {
-                        Text("This permanently removes the selected child's profile and all their session history.")
+                        Text("Permanently removes the selected child's profile and all session history.")
                     }
                 }
             }
             .navigationTitle("Settings")
             .sheet(isPresented: $showAddChild) {
-                ChildFormView(mode: .add) { child in
-                    dataStore.addChild(child)
-                }
+                ChildFormView(mode: .add) { child in dataStore.addChild(child) }
             }
             .sheet(item: $editingChild) { child in
-                ChildFormView(mode: .edit(child)) { updated in
-                    dataStore.updateChild(updated)
-                }
+                ChildFormView(mode: .edit(child)) { updated in dataStore.updateChild(updated) }
             }
             .alert("Delete Profile?", isPresented: $showDeleteAlert, presenting: childToDelete) { child in
-                Button("Delete", role: .destructive) {
-                    dataStore.deleteChild(id: child.id)
-                }
+                Button("Delete", role: .destructive) { dataStore.deleteChild(id: child.id) }
                 Button("Cancel", role: .cancel) {}
             } message: { child in
                 Text("All sessions for \(child.name) will be permanently deleted.")
+            }
+            .alert("Log Out?", isPresented: $showLogoutAlert) {
+                Button("Log Out", role: .destructive) { dataStore.logout() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("You'll need your password to log back in.")
             }
         }
     }
@@ -86,16 +121,32 @@ struct SettingsView: View {
 
 private struct ChildRow: View {
     let child: Child
+    let isSelected: Bool
     let onEdit: () -> Void
+    let onSelect: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
-            InitialsAvatar(initials: child.initials, size: 40)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(child.name).font(.subheadline.weight(.semibold))
-                Text("Age \(child.age)").font(.caption).foregroundColor(.secondary)
+            Button(action: onSelect) {
+                HStack(spacing: 12) {
+                    InitialsAvatar(initials: child.initials, size: 40)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 6) {
+                            Text(child.name).font(.subheadline.weight(.semibold))
+                            if isSelected {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.blue)
+                                    .font(.caption)
+                            }
+                        }
+                        Text("Age \(child.age)").font(.caption).foregroundColor(.secondary)
+                    }
+                }
             }
+            .buttonStyle(.plain)
+
             Spacer()
+
             Button(action: onEdit) {
                 Image(systemName: "pencil.circle")
                     .foregroundColor(.blue)
@@ -163,12 +214,14 @@ struct ChildFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Name") {
-                    TextField("Child's name", text: $name)
+                Section("Child's Name") {
+                    TextField("e.g. Alex", text: $name)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.words)
                 }
                 Section("Age") {
                     Picker("Age", selection: $age) {
-                        ForEach(4...16, id: \.self) { Text("\($0)").tag($0) }
+                        ForEach(4...18, id: \.self) { Text("\($0) years old").tag($0) }
                     }
                     .pickerStyle(.wheel)
                     .frame(height: 120)
@@ -186,7 +239,7 @@ struct ChildFormView: View {
                     Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
+                    Button("Save") { save() }.bold()
                 }
             }
         }

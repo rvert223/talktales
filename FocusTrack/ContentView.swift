@@ -4,7 +4,9 @@ struct ContentView: View {
     @EnvironmentObject var dataStore: DataStore
 
     var body: some View {
-        if !dataStore.hasCompletedOnboarding || dataStore.children.isEmpty {
+        if !dataStore.isLoggedIn {
+            AuthView(startOnSignUp: dataStore.account == nil)
+        } else if !dataStore.hasCompletedOnboarding || dataStore.children.isEmpty {
             OnboardingView()
         } else {
             MainTabView()

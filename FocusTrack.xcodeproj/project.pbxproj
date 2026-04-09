@@ -10,6 +10,8 @@
 		B1000001000000000000B001 /* FocusTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000001000000000000F001 /* FocusTrackApp.swift */; };
 		B1000002000000000000B001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000002000000000000F001 /* ContentView.swift */; };
 		B1000003000000000000B001 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000003000000000000F001 /* Models.swift */; };
+		B1000012000000000000B001 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000012000000000000F001 /* Account.swift */; };
+		B1000013000000000000B001 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000013000000000000F001 /* AuthView.swift */; };
 		B1000004000000000000B001 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000004000000000000F001 /* DataStore.swift */; };
 		B1000005000000000000B001 /* BehaviorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000005000000000000F001 /* BehaviorTracker.swift */; };
 		B1000006000000000000B001 /* AttentionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1000006000000000000F001 /* AttentionAnalyzer.swift */; };
@@ -44,6 +46,8 @@
 		F100000F000000000000F001 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		F1000010000000000000F001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F1000011000000000000F001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1000012000000000000F001 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F1000013000000000000F001 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6000CA1B2C3D4 /* FocusTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				F1000003000000000000F001 /* Models.swift */,
+				F1000012000000000000F001 /* Account.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 		A1B2C3D4E5F60005A1B2C3D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D4E5F60012A1B2C3D4 /* Auth */,
 				A1B2C3D4E5F6000AA1B2C3D4 /* Onboarding */,
 				A1B2C3D4E5F60006A1B2C3D4 /* Dashboard */,
 				A1B2C3D4E5F60007A1B2C3D4 /* Exercises */,
@@ -115,6 +121,14 @@
 				A1B2C3D4E5F60009A1B2C3D4 /* Settings */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60012A1B2C3D4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F1000013000000000000F001 /* AuthView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		A1B2C3D4E5F6000AA1B2C3D4 /* Onboarding */ = {
@@ -247,6 +261,8 @@
 				B100000E000000000000B001 /* PatternGameView.swift in Sources */,
 				B100000F000000000000B001 /* ReportsView.swift in Sources */,
 				B1000010000000000000B001 /* SettingsView.swift in Sources */,
+				B1000012000000000000B001 /* Account.swift in Sources */,
+				B1000013000000000000B001 /* AuthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
