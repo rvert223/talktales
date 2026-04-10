@@ -12,6 +12,7 @@ struct AuthView: View {
     @State private var password        = ""
     @State private var confirmPassword = ""
     @State private var errorMessage: String?
+    @State private var showResetAlert  = false
     @FocusState private var focused: Field?
 
     enum Mode  { case login, signUp }
@@ -123,11 +124,30 @@ struct AuthView: View {
                     .font(.subheadline)
                 }
                 .padding(.top, 16)
-                .padding(.bottom, 48)
+
+                // ── Reset (login screen only) ─────────────────────────
+                if mode == .login {
+                    Button("Forgot password? Reset account") {
+                        showResetAlert = true
+                    }
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.top, 8)
+                }
+
+                Spacer().frame(height: 48)
             }
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .onTapGesture { focused = nil }
+        .alert("Reset Account?", isPresented: $showResetAlert) {
+            Button("Reset Everything", role: .destructive) {
+                dataStore.resetAll()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This permanently deletes your account, all child profiles, and all session data. You'll start fresh with a new account.")
+        }
         .onAppear {
             // If no account exists yet, jump straight to sign-up
             if dataStore.account == nil { mode = .signUp }

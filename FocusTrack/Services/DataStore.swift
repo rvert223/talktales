@@ -57,6 +57,19 @@ final class DataStore: ObservableObject {
         UserDefaults.standard.set(false, forKey: loggedInKey)
     }
 
+    /// Wipes every key this app owns — use when the user is locked out.
+    func resetAll() {
+        account    = nil
+        isLoggedIn = false
+        children   = []
+        sessions   = []
+        selectedChildId         = nil
+        hasCompletedOnboarding  = false
+        for key in [accountKey, loggedInKey, childrenKey, sessionsKey, onboardingKey] {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+    }
+
     func updateAccountName(_ newName: String) {
         account?.name = newName
         saveAccount()
